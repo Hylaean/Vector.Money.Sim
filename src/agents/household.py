@@ -15,6 +15,7 @@ class Household(Agent):
         water_rate=0.5,
         biomass_rate=0.1,
         mineral_rate=0.05,
+        needs_vector=None,
     ):
         super().__init__(unique_id, model)
         self.income = income
@@ -24,6 +25,7 @@ class Household(Agent):
         self.water_rate = water_rate
         self.biomass_rate = biomass_rate
         self.mineral_rate = mineral_rate
+        self.needs_vector = list(needs_vector or [0.0, 0.0, 0.0, 0.0])
 
     def step(self):
         """Update the household's wealth and potentially its technology choice."""
