@@ -1,10 +1,21 @@
 from mesa import Agent
 
+
 class Household(Agent):
     """Household agent with income, wealth and technology choice."""
 
-    def __init__(self, unique_id, model, income=0.0, wealth=0.0, technology=None,
-                 carbon_rate=1.0, water_rate=0.5, biomass_rate=0.1, mineral_rate=0.05):
+    def __init__(
+        self,
+        unique_id,
+        model,
+        income=0.0,
+        wealth=0.0,
+        technology=None,
+        carbon_rate=1.0,
+        water_rate=0.5,
+        biomass_rate=0.1,
+        mineral_rate=0.05,
+    ):
         super().__init__(unique_id, model)
         self.income = income
         self.wealth = wealth
