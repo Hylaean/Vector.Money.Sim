@@ -1,0 +1,15 @@
+seed: 42
+ensembles: 2
+steps: 5
+output_dir: outputs
+agents:
+  households: 2
+  firms: 1
+  government: true
+  bank: true
+initial_stocks:
+  carbon_budget: 100.0
+  water: 100.0
+  biomass: 100.0
+  minerals: 100.0
+price_sensitivity: 0.2
