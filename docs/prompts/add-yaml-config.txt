@@ -1,0 +1,3 @@
+Create a YAML-based configuration format in `configs/`.
+Implement a run script (`scripts/run_simulation.py`) that loads configs, sets random seeds, and runs ensembles.
+Store outputs as time-series CSV files.
