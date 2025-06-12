@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vector-money-sim"
+version = "0.1.0"
+description = "Vector Money Simulation"
+readme = "README.md"
+authors = [ { name = "Vector Money" } ]
+dependencies = [
+    "mesa",
+    "pandas",
+    "pysd",
+]
+requires-python = ">=3.8"
+
+[tool.setuptools.packages.find]
+where = ["src"]
