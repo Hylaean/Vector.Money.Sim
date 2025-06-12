@@ -1,0 +1,2 @@
+* Add scripts under `src/data/` to read input-output tables (e.g., EXIOBASE) and ecological inventories.
+* Normalise data to per-capita indicators consistent with Doughnut Economics.
