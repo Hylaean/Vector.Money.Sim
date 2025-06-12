@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Vector Money Simulation"
 readme = "README.md"
 authors = [ { name = "Vector Money" } ]
+license = { file = "LICENSE" }
 dependencies = [
     "mesa",
     "pandas",

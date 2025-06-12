@@ -33,4 +33,5 @@ Additional documentation is available in the [`docs/`](docs/) directory. See `do
 
 ## License
 
-This project is provided for educational purposes. See the `LICENSE` file if present for license information.
+This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+See the [LICENSE](LICENSE) file for the full text.

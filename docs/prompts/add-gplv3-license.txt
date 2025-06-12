@@ -1,0 +1,1 @@
+set the repository code to be licensed with GPLv3
