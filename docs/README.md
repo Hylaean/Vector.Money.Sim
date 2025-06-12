@@ -17,4 +17,13 @@ The simulation defines several economic actors using the [`mesa.Agent`](https://
 
 ## Markets
 
-The `Market` class provides a simple trading system linking agents with the bio-physical stocks. Prices adjust whenever a stock falls below its ecological limit, modelling scarcity effects. Agents may buy or sell resources and their wealth is updated accordingly.
+The ``Market`` class provides a simple trading system that links economic
+agents with the bio-physical stocks.  Prices automatically adjust whenever a
+stock falls below its ecological limit, modelling scarcity effects.
+
+## Data
+
+The ``data`` package loads input-output tables and ecological inventories using pandas.
+It also provides ``normalise_per_capita`` to express indicators per person for
+Doughnut Economics style analysis.
+
