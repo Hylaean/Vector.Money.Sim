@@ -16,6 +16,7 @@ from typing import Callable
 try:  # pragma: no cover - optional import
     from pysd.py_backend.functions import Integ  # type: ignore
 except Exception:  # pragma: no cover - pysd may not be installed
+
     class Integ:  # pragma: no cover - simple stand in
         """Minimal replacement for ``pysd``'s ``Integ`` class."""
 
@@ -26,6 +27,7 @@ except Exception:  # pragma: no cover - pysd may not be installed
         def step(self, dt: float = 1.0) -> float:
             self.state += self.func() * dt
             return self.state
+
 
 @dataclass
 class StockModel:
@@ -57,11 +59,13 @@ class StockModel:
 class BioPhysicalStocks:
     """Collection of bio-physical stocks used by the model."""
 
-    def __init__(self,
-                 carbon_budget: float = 0.0,
-                 water: float = 0.0,
-                 biomass: float = 0.0,
-                 minerals: float = 0.0) -> None:
+    def __init__(
+        self,
+        carbon_budget: float = 0.0,
+        water: float = 0.0,
+        biomass: float = 0.0,
+        minerals: float = 0.0,
+    ) -> None:
         self.carbon_budget = StockModel(carbon_budget)
         self.water = StockModel(water)
         self.biomass = StockModel(biomass)

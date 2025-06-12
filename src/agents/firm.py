@@ -1,10 +1,20 @@
 from mesa import Agent
 
+
 class Firm(Agent):
     """Firm agent representing a production unit."""
 
-    def __init__(self, unique_id, model, capital=1.0, productivity=1.0,
-                 carbon_rate=2.0, water_rate=1.0, biomass_rate=0.5, mineral_rate=0.3):
+    def __init__(
+        self,
+        unique_id,
+        model,
+        capital=1.0,
+        productivity=1.0,
+        carbon_rate=2.0,
+        water_rate=1.0,
+        biomass_rate=0.5,
+        mineral_rate=0.3,
+    ):
         super().__init__(unique_id, model)
         self.capital = capital
         self.productivity = productivity

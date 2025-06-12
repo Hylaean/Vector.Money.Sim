@@ -1,9 +1,9 @@
 """Agent classes used in the vector money simulation."""
 
-from .household import Household
+from .financial_intermediary import FinancialIntermediary
 from .firm import Firm
 from .government import Government
-from .financial_intermediary import FinancialIntermediary
+from .household import Household
 
 __all__ = [
     "Household",
