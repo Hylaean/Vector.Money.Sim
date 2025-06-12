@@ -14,12 +14,17 @@ The simulation defines several economic actors using the [`mesa.Agent`](https://
 ## Bio-Physical Stocks
 
 `BioPhysicalStocks` tracks quantities such as carbon budget, water, biomass and minerals. Each stock can be integrated with [`pysd`](https://github.com/SDXorg/pysd) if available, otherwise a minimal integrator is used.
+`BiophysicalStock` is a lighter stock used by the ``DoughnutABM`` model to represent resources with an ecological ceiling.
 
 ## Markets
 
 The ``Market`` class provides a simple trading system that links economic
 agents with the bio-physical stocks.  Prices automatically adjust whenever a
 stock falls below its ecological limit, modelling scarcity effects.
+
+## DoughnutABM
+
+``DoughnutABM`` wraps households and firms in a small agent-based model. It tracks social floors and ecological ceilings and records indicators such as carbon overshoot and average need satisfaction at each step using Mesa's ``DataCollector`` (or a fallback when Mesa is unavailable).
 
 ## Data
 
