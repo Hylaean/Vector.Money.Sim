@@ -1,7 +1,8 @@
 """Vector Money Simulation package."""
 
-from .agents import Household, Firm, Government, FinancialIntermediary
+from .agents import FinancialIntermediary, Firm, Government, Household
 from .biophysics import BioPhysicalStocks
+from .markets import Market
 
 __all__ = [
     "Household",
@@ -9,4 +10,5 @@ __all__ = [
     "Government",
     "FinancialIntermediary",
     "BioPhysicalStocks",
+    "Market",
 ]

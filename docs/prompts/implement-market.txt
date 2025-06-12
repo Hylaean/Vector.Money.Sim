@@ -1,0 +1,1 @@
+* Create src/markets/market.py implementing trading mechanisms. Prices should adjust when resource stocks approach their ecological limits.
