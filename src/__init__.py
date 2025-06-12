@@ -5,6 +5,7 @@ from .biophysics import BioPhysicalStocks
 from .doughnut_abm import DoughnutABM
 from .environment import BiophysicalStock
 from .markets import Market
+from .models import BaselineModel
 
 __all__ = [
     "Household",
@@ -15,4 +16,5 @@ __all__ = [
     "Market",
     "BiophysicalStock",
     "DoughnutABM",
+    "BaselineModel",
 ]

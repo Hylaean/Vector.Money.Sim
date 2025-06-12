@@ -32,3 +32,10 @@ The ``data`` package loads input-output tables and ecological inventories using 
 It also provides ``normalise_per_capita`` to express indicators per person for
 Doughnut Economics style analysis.
 
+## Baseline Model
+
+`BaselineModel` in ``src/models/baseline.py`` bundles agents, resource stocks
+and the market into a single simulation class.  Default parameters imitate
+late-20th-century global conditions.  The :py:meth:`run` method executes the
+model for a given number of steps and returns a list of recorded stock levels.
+
