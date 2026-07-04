@@ -10,10 +10,16 @@ readme = "README.md"
 authors = [ { name = "Vector Money" } ]
 license = { file = "LICENSE" }
 dependencies = [
-    "mesa",
+    "mesa<3",
     "pandas",
     "pysd",
+    "pyyaml",
+    "numpy",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest", "matplotlib"]
+llm = ["anthropic"]
 requires-python = ">=3.8"
 
 [tool.setuptools.packages.find]
