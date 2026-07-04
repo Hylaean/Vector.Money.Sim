@@ -102,7 +102,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/site
+# /site   (mkdocs default — disabled: site/ holds the project website)
 
 # mypy
 .mypy_cache/
@@ -114,3 +114,8 @@ dmypy.json
 
 # VS Code
 .vscode/
+
+# local virtualenv
+.venv/
+outputs/
+experiments/results*/timeseries/
