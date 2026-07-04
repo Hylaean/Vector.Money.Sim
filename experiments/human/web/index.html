@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Resource Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #666666;
+    --card: #f4f4f5;
+    --border: #d8d8dc;
+    --accent: #2563eb;
+    --accent-fg: #ffffff;
+    --good: #1f9d55;
+    --bad: #d64545;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15161a;
+      --fg: #ececec;
+      --muted: #a0a0a8;
+      --card: #1f2024;
+      --border: #34353b;
+      --accent: #4f8dff;
+      --accent-fg: #0a0a0a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  h2 { font-size: 1.1rem; margin: 1.4em 0 0.5em; }
+  p { margin: 0.6em 0; }
+  .muted { color: var(--muted); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+  }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.85rem; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--fg);
+    padding: 10px 16px;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.primary {
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .levels { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .levels button { flex: 1 1 120px; min-width: 100px; padding: 14px 10px; font-size: 1.05rem; }
+  .levels button .lv-cost { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 4px; font-weight: 400; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .row > div { flex: 1 1 220px; }
+  .bar-track { background: var(--border); border-radius: 6px; height: 14px; overflow: hidden; margin: 4px 0 2px; }
+  .bar-fill { height: 100%; border-radius: 6px; transition: width 0.3s ease, background-color 0.3s ease; }
+  .mat-label { display: flex; justify-content: space-between; font-size: 0.85rem; }
+  .top-bar { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .badge { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 0.8rem; color: var(--muted); }
+  .feedback { font-weight: 600; }
+  #screen-consent label { display: flex; gap: 8px; align-items: flex-start; margin-top: 1em; }
+  input[type="checkbox"] { width: 18px; height: 18px; margin-top: 3px; }
+  textarea, select {
+    width: 100%; font: inherit; padding: 8px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  }
+  .likert { display: flex; gap: 6px; justify-content: space-between; margin-top: 6px; }
+  .likert label { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; gap: 4px; flex: 1; }
+  .hidden { display: none !important; }
+  footer { margin-top: 40px; font-size: 0.8rem; color: var(--muted); }
+  code { background: var(--card); padding: 1px 5px; border-radius: 4px; }
+</style>
+
+<div class="wrap">
+  <h1>Resource Game</h1>
+
+  <!-- ============ CONSENT ============ -->
+  <section id="screen-consent">
+    <div class="card">
+      <h2 style="margin-top:0">Study information and consent</h2>
+      <p>You are invited to take part in a short online study about how people make decisions in a simulated economy. You will play a resource game for about 15 minutes, alongside computer-simulated players, and answer a short questionnaire afterwards.</p>
+      <p><strong>What you will do.</strong> Choose how much to "consume" each round from a shared pool of materials, for 30 rounds, then answer 5 short questions.</p>
+      <p><strong>Payment.</strong> You will receive a flat fee for completing the study, plus a bonus based on your score in the game. Full amounts are stated on the study listing before you start.</p>
+      <p><strong>Risks.</strong> This study poses no more than minimal risk. It is not a test of intelligence or ability, there are no right or wrong personal answers, and no health, financial, or otherwise sensitive information is collected from you.</p>
+      <p><strong>Data.</strong> We record your in-game choices, the times you took to decide, and your questionnaire answers. We do not collect your name, email, or any directly identifying information — you are identified only by an anonymous participant code. Only the anonymised dataset is shared publicly as part of the research record.</p>
+      <p><strong>Voluntary participation.</strong> Taking part is voluntary. You can stop at any point by closing the browser tab. You can request that your data be deleted within 14 days of taking part by contacting the researcher at the email on the study listing, quoting your participant code.</p>
+      <label><input type="checkbox" id="consent-check" /> <span>I confirm I am 18 or older, have read the above, and consent to take part.</span></label>
+    </div>
+    <button class="primary" id="btn-consent-continue" disabled>Continue</button>
+  </section>
+
+  <!-- ============ INSTRUCTIONS ============ -->
+  <section id="screen-instructions" class="hidden">
+    <div class="card">
+      <h2 style="margin-top:0">Welcome</h2>
+      <p>You are about to play a <strong>30-round</strong> resource game together with 19 computer-controlled players, in a shared economy of 20 households.</p>
+      <p>Every round, four <strong>materials</strong> — A, B, C and D — are available in a shared pool. Every household, including you, can "consume" materials at one of four <strong>levels</strong>: 0, 1, 2, or 3. Higher levels use more materials and score more points, but the materials are limited and regenerate on their own between rounds — if too much is taken, there is less available later.</p>
+      <p>You will also earn a small amount of <strong>cash</strong> each round (your "wage"), which you spend to consume. Depending on your assigned game version, you may also receive <strong>stamps</strong> — a separate kind of allowance, one stamp type per material — that you need alongside (or instead of) cash to consume materials.</p>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Levels and scores</h2>
+      <table>
+        <tr><th>Level</th><th>Points this round</th></tr>
+        <tr><td>0</td><td>0</td></tr>
+        <tr><td>1</td><td>0.55</td></tr>
+        <tr><td>2</td><td>0.85</td></tr>
+        <tr><td>3</td><td>1.00</td></tr>
+      </table>
+      <p>Your total score is the sum of your points across all 30 rounds. Points convert directly into your bonus payment.</p>
+      <p><strong>Cost.</strong> Each level costs cash, and — in some game versions — stamps of each material type. The cost of each level is shown on your screen every round. If you don't have enough cash (and stamps, if used), that level is greyed out.</p>
+      <p><strong>Materials run out.</strong> If a material's shared pool runs very low, even an affordable level may deliver less than its usual points, because there isn't enough of that material to go around. A bar for each material (A–D) shows how healthy its pool currently is, from empty (red) to full (green).</p>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Investing</h2>
+      <p>At any point, you may spend <strong>4.0 cash</strong> to invest in efficiency. This permanently reduces how much material your future consumption uses (by 15% each time, though the benefit shrinks with a floor). Investing does not add points directly, but may keep future levels affordable and pools healthier for longer.</p>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Each round you will see</h2>
+      <p>The round number, your cash (and stamps, if used), a health bar per material, the cost of levels 0–3, and the points you scored last round. There is no "undo" once you submit a round.</p>
+    </div>
+    <button class="primary" id="btn-instructions-continue">Continue to comprehension check</button>
+  </section>
+
+  <!-- ============ COMPREHENSION CHECK ============ -->
+  <section id="screen-check" class="hidden">
+    <div class="card">
+      <h2 style="margin-top:0">Quick check</h2>
+      <p class="muted">Answer all four questions. You need at least 3 correct to continue.</p>
+      <div id="check-form"></div>
+    </div>
+    <button class="primary" id="btn-check-submit">Submit answers</button>
+    <p id="check-result" class="muted"></p>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="screen-game" class="hidden">
+    <div class="top-bar">
+      <span class="badge" id="round-badge">Round 1 / 30</span>
+      <span class="feedback" id="feedback-line">&nbsp;</span>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="mat-label"><span>Cash</span><strong id="wallet-cash">—</strong></div>
+        </div>
+        <div id="stamp-wallet-wrap" class="hidden">
+          <div class="mat-label"><span>Stamps</span><span></span></div>
+          <div id="stamp-wallet" class="muted" style="font-size:0.85rem"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Material health</h2>
+      <div id="materials"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Choose a level</h2>
+      <table id="cost-table">
+        <thead><tr><th>Level</th><th>Cash cost</th><th id="stamp-cost-head" class="hidden">Stamp cost (A/B/C/D)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="levels" id="level-buttons"></div>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+        <input type="checkbox" id="invest-check" style="width:16px;height:16px;" />
+        <span>Invest 4.0 cash in efficiency this round <span class="muted" id="invest-note"></span></span>
+      </label>
+      <p style="margin-top:14px;">
+        <button class="primary" id="btn-submit-round" disabled>Submit round</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ QUESTIONNAIRE ============ -->
+  <section id="screen-questionnaire" class="hidden">
+    <div class="card">
+      <h2 style="margin-top:0">A few questions about your experience</h2>
+      <p><strong>1. What strategy did you use to decide how much to consume each round?</strong></p>
+      <textarea id="q1" rows="3"></textarea>
+
+      <p style="margin-top:1.2em"><strong>2. How much did you feel your choices affected the shared materials?</strong></p>
+      <div class="likert" id="q2"></div>
+
+      <p style="margin-top:1.2em"><strong>3. How fair did the rules feel to you?</strong></p>
+      <div class="likert" id="q3"></div>
+
+      <p style="margin-top:1.2em"><strong>4. Was anything about the task confusing?</strong></p>
+      <textarea id="q4" rows="3"></textarea>
+
+      <p style="margin-top:1.2em"><strong>5. Overall, how difficult was it to decide what to do each round?</strong></p>
+      <select id="q5">
+        <option value="">Choose one</option>
+        <option>Very easy</option>
+        <option>Easy</option>
+        <option>Neutral</option>
+        <option>Hard</option>
+        <option>Very hard</option>
+      </select>
+    </div>
+    <button class="primary" id="btn-submit-questionnaire">Submit</button>
+  </section>
+
+  <!-- ============ DEBRIEF / END ============ -->
+  <section id="screen-end" class="hidden">
+    <div class="card">
+      <h2 style="margin-top:0">Thank you — here's what this study was really about.</h2>
+      <p>You just played one of four versions of the same game. Some participants played with only cash ("scalar money"); others also needed material-specific stamps ("vector money"). Some played in a stable environment; others in one where the materials' regeneration weakened over time and occasional shocks destroyed part of two of the four pools. We are comparing how these different rule-sets affect what people do and how well the shared materials and everyone's scores hold up over time. Your individual data will only ever be reported anonymously and combined with many other participants' data.</p>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Your results</h2>
+      <p>Total score: <strong id="final-score">—</strong> points (out of 30 possible).</p>
+      <p id="post-status" class="muted"></p>
+      <button class="primary" id="btn-download">Download my data (JSON)</button>
+    </div>
+    <footer>Condition: <code id="final-condition"></code> · Participant: <code id="final-pid"></code></footer>
+  </section>
+</div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+ * 1. RNG — mulberry32, seeded from the participant id, for reproducible
+ *    sessions. Independent of Python's Mersenne-twister stream: this is
+ *    a faithful *mechanism* port (same constants, same formulas, same
+ *    step order), not a bit-for-bit replay of any specific Python run.
+ * =================================================================== */
+function hashSeed(str) {
+  // FNV-1a 32-bit
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return h >>> 0;
+}
+
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function makeRng(seed) {
+  const rand = mulberry32(seed);
+  return {
+    random: rand,
+    // Box-Muller standard normal, then scaled/shifted + exponentiated
+    // for a lognormal draw: matches Python's
+    // random.lognormvariate(mu, sigma) = exp(normalvariate(mu, sigma)).
+    lognormvariate(mu, sigma) {
+      let u1 = rand(), u2 = rand();
+      if (u1 < 1e-12) u1 = 1e-12;
+      const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      return Math.exp(mu + sigma * z);
+    },
+  };
+}
+
+/* =====================================================================
+ * 2. Constants — ported verbatim from src/economy.py, src/climate.py,
+ *    src/money.py. Material names A/B/C/D map to carbon/water/biomass/
+ *    minerals in that order (the Python resource tuple order).
+ * =================================================================== */
+const RESOURCE_KEYS = ["carbon", "water", "biomass", "minerals"];
+const RESOURCE_LABELS = { carbon: "A", water: "B", biomass: "C", minerals: "D" };
+
+const SATISFACTION = [0.0, 0.55, 0.85, 1.0];
+const UNIT_FOOTPRINT = { carbon: 0.06, water: 0.05, biomass: 0.04, minerals: 0.02 };
+const UNIT_CASH_COST = 1.0;
+const EFFICIENCY_COST = 4.0;
+const EFFICIENCY_FACTOR = 0.85;
+const EFFICIENCY_FLOOR = 0.4;
+
+const RESOURCE_DEFAULTS = { stock: 70.0, capacity: 100.0, regen_rate: 0.10, boundary: 40.0 };
+
+const CLIMATE_TRAJECTORY = {
+  regen_drift: 0.004,
+  regen_floor: 0.45,
+  shock_prob_initial: 0.02,
+  shock_prob_growth: 0.002,
+  shock_prob_max: 0.15,
+  shock_severity: 0.15,
+  shocked_resources: ["water", "biomass"],
+};
+
+const N_HOUSEHOLDS = 20;
+const WAGE_MEAN = 3.0;
+const WAGE_SPREAD = 0.5;
+const OBSERVATION_LAG = 3;
+const ISSUANCE_HEADROOM = 1.0;
+const PRICE_SENSITIVITY = 0.15;
+const CARRYOVER = 0.5;
+const CONVERTIBILITY = 0.0; // strictly non-convertible vector tokens
+
+/* =====================================================================
+ * 3. Environment — logistic regen, static or shifting (drift + shocks).
+ * =================================================================== */
+class ResourceState {
+  constructor(name) {
+    this.name = name;
+    this.stock = RESOURCE_DEFAULTS.stock;
+    this.capacity = RESOURCE_DEFAULTS.capacity;
+    this.regen_rate = RESOURCE_DEFAULTS.regen_rate;
+    this.boundary = RESOURCE_DEFAULTS.boundary;
+  }
+  regenerate(rateMultiplier) {
+    const rate = this.regen_rate * rateMultiplier;
+    const growth = rate * this.stock * Math.max(0.0, 1.0 - this.stock / this.capacity);
+    this.stock = Math.min(this.capacity, this.stock + growth);
+  }
+  extract(amount) {
+    const taken = Math.min(this.stock, Math.max(0.0, amount));
+    this.stock -= taken;
+    return taken;
+  }
+  get health() {
+    return this.capacity > 0 ? this.stock / this.capacity : 0.0;
+  }
+}
+
+class Environment {
+  constructor(kind, rng) {
+    this.kind = kind; // "static" | "shifting"
+    this.rng = rng;
+    this.t = 0;
+    this.history = [];
+    this.shocks = [];
+    this.resources = {};
+    for (const name of RESOURCE_KEYS) this.resources[name] = new ResourceState(name);
+  }
+  rateMultiplier() {
+    if (this.kind === "shifting") {
+      return Math.max(
+        CLIMATE_TRAJECTORY.regen_floor,
+        1.0 - CLIMATE_TRAJECTORY.regen_drift * this.t
+      );
+    }
+    return 1.0;
+  }
+  step() {
+    // 1. snapshot stocks pre-regen (this is what sustainable_yield/lagged
+    //    health read back later with an observation lag).
+    const snap = {};
+    for (const name of RESOURCE_KEYS) snap[name] = this.resources[name].stock;
+    this.history.push(snap);
+    // 2. regenerate using the *pre-increment* t.
+    const mult = this.rateMultiplier();
+    for (const name of RESOURCE_KEYS) this.resources[name].regenerate(mult);
+    // 3. advance clock.
+    this.t += 1;
+    // 4. shifting-only: shocks, using the *post-increment* t.
+    if (this.kind === "shifting") {
+      const prob = Math.min(
+        CLIMATE_TRAJECTORY.shock_prob_max,
+        CLIMATE_TRAJECTORY.shock_prob_initial + CLIMATE_TRAJECTORY.shock_prob_growth * this.t
+      );
+      if (this.rng.random() < prob) {
+        const shock = { t: this.t };
+        for (const name of CLIMATE_TRAJECTORY.shocked_resources) {
+          const res = this.resources[name];
+          const lost = res.stock * CLIMATE_TRAJECTORY.shock_severity;
+          res.stock -= lost;
+          shock[name] = lost;
+        }
+        this.shocks.push(shock);
+      }
+    }
+  }
+  extract(name, amount) {
+    return this.resources[name].extract(amount);
+  }
+  sustainableYield(name, lag) {
+    const res = this.resources[name];
+    let stock;
+    if (this.history.length > 0 && lag > 0) {
+      const idx = Math.max(0, this.history.length - lag);
+      const lagged = this.history[idx];
+      stock = lagged[name] !== undefined ? lagged[name] : res.stock;
+    } else {
+      stock = res.stock;
+    }
+    const estimate = res.regen_rate * stock * Math.max(0.0, 1.0 - stock / res.capacity);
+    if (stock <= res.boundary) return 0.0;
+    return estimate;
+  }
+  laggedHealth(lag) {
+    const out = {};
+    if (this.history.length > 0 && lag > 0) {
+      const idx = Math.max(0, this.history.length - lag);
+      const snap = this.history[idx];
+      for (const name of RESOURCE_KEYS) {
+        const res = this.resources[name];
+        out[name] = res.capacity ? snap[name] / res.capacity : 0.0;
+      }
+    } else {
+      for (const name of RESOURCE_KEYS) out[name] = this.resources[name].health;
+    }
+    return out;
+  }
+}
+
+/* =====================================================================
+ * 4. Money systems — scalar (cash-only, footprint priced in) vs. vector
+ *    (cash + strictly-binding per-resource tokens at convertibility 0).
+ * =================================================================== */
+class Wallet {
+  constructor(cash) {
+    this.cash = cash;
+    this.tokens = { carbon: 0, water: 0, biomass: 0, minerals: 0 };
+  }
+  tokenBalance(dim) { return this.tokens[dim] || 0; }
+  addTokens(dim, amount) { this.tokens[dim] = (this.tokens[dim] || 0) + amount; }
+  decayTokens(keepFraction) {
+    for (const dim of Object.keys(this.tokens)) this.tokens[dim] *= keepFraction;
+  }
+}
+
+class MoneySystem {
+  constructor() {
+    this.token_prices = { carbon: 1.0, water: 1.0, biomass: 1.0, minerals: 1.0 };
+  }
+  updatePrices(stockHealth, sensitivity) {
+    for (const dim of Object.keys(stockHealth)) {
+      if (!(dim in this.token_prices)) continue;
+      const scarcity = Math.max(0.0, 1.0 - stockHealth[dim]);
+      const target = 1.0 + 4.0 * scarcity;
+      const current = this.token_prices[dim];
+      this.token_prices[dim] = current + sensitivity * (target - current);
+    }
+  }
+}
+
+class ScalarMoney extends MoneySystem {
+  constructor() { super(); this.name = "scalar"; }
+  price(cashCost, footprint) {
+    let resourceCash = 0;
+    for (const dim of Object.keys(footprint)) resourceCash += (this.token_prices[dim] || 1.0) * footprint[dim];
+    return { cash_cost: cashCost + resourceCash, token_cost: {} };
+  }
+  shortfallCash(wallet, purchase) {
+    return wallet.cash >= purchase.cash_cost ? purchase.cash_cost : null;
+  }
+  execute(wallet, purchase) {
+    const total = this.shortfallCash(wallet, purchase);
+    if (total === null) return false;
+    wallet.cash -= total;
+    return true;
+  }
+  issue() {} // no-op
+}
+
+class VectorMoney extends MoneySystem {
+  constructor(convertibility, carryover) {
+    super();
+    this.name = "vector";
+    this.convertibility = convertibility;
+    this.carryover = carryover;
+  }
+  price(cashCost, footprint) {
+    return { cash_cost: cashCost, token_cost: Object.assign({}, footprint) };
+  }
+  shortfallCash(wallet, purchase) {
+    let conversion = 0;
+    for (const dim of Object.keys(purchase.token_cost)) {
+      const amount = purchase.token_cost[dim];
+      const missing = Math.max(0.0, amount - wallet.tokenBalance(dim));
+      if (missing <= 0) continue;
+      if (this.convertibility <= 0.0) return null; // strictly binding
+      const unitPrice = (this.token_prices[dim] || 1.0) / this.convertibility;
+      conversion += missing * unitPrice;
+    }
+    const total = purchase.cash_cost + conversion;
+    return wallet.cash >= total ? total : null;
+  }
+  execute(wallet, purchase) {
+    const total = this.shortfallCash(wallet, purchase);
+    if (total === null) return false;
+    wallet.cash -= total;
+    for (const dim of Object.keys(purchase.token_cost)) {
+      const held = wallet.tokenBalance(dim);
+      wallet.tokens[dim] = Math.max(0.0, held - purchase.token_cost[dim]);
+    }
+    return true;
+  }
+  issue(wallets, allocation) {
+    if (!wallets.length) return;
+    const share = {};
+    for (const dim of Object.keys(allocation)) share[dim] = allocation[dim] / wallets.length;
+    for (const wallet of wallets) {
+      wallet.decayTokens(this.carryover);
+      for (const dim of Object.keys(share)) wallet.addTokens(dim, share[dim]);
+    }
+  }
+}
+
+function makeMoneySystem(kind) {
+  if (kind === "scalar") return new ScalarMoney();
+  if (kind === "vector") return new VectorMoney(CONVERTIBILITY, CARRYOVER);
+  throw new Error("unknown money system: " + kind);
+}
+
+/* =====================================================================
+ * 5. Rule-based bot policy — thresholds ported from RuleBasedPolicy
+ *    (greed = 0), used for all 19 non-human households.
+ * =================================================================== */
+function ruleBasedDecide(obs) {
+  const healthVals = Object.values(obs.stock_health);
+  const minHealth = healthVals.length ? Math.min(...healthVals) : 1.0;
+  const affordable = [];
+  for (const level of Object.keys(obs.unit_cost)) {
+    if (obs.unit_cost[level] <= obs.cash) affordable.push(parseInt(level, 10));
+  }
+  const ceiling = affordable.length ? Math.max(...affordable) : 0;
+  let target;
+  if (minHealth < 0.35) target = 1;
+  else if (minHealth < 0.6) target = 2;
+  else target = obs.cash > 3 * (obs.unit_cost["1"] !== undefined ? obs.unit_cost["1"] : 1.0) ? 3 : 2;
+  const invest = obs.cash > 8.0 && minHealth < 0.6;
+  return { consumption: Math.min(target, ceiling), invest };
+}
+
+/* =====================================================================
+ * 6. Household + Economy — mirrors src/economy.py step-by-step,
+ *    including household processing order (extraction is first-come,
+ *    first-served: the human is household index 0, processed first).
+ * =================================================================== */
+class Household {
+  constructor(uid, wage, isHuman) {
+    this.uid = uid;
+    this.wallet = new Wallet(5.0);
+    this.wage = wage;
+    this.efficiency = 1.0;
+    this.isHuman = isHuman;
+    this.satisfactionHistory = [];
+  }
+  footprint(units) {
+    const out = {};
+    for (const dim of RESOURCE_KEYS) out[dim] = UNIT_FOOTPRINT[dim] * units * this.efficiency;
+    return out;
+  }
+}
+
+class Economy {
+  constructor(cfg) {
+    this.cfg = cfg;
+    this.envRng = makeRng(cfg.seed);
+    this.wageRng = makeRng(cfg.seed); // independent stream, same seed value
+    this.env = new Environment(cfg.environment, this.envRng);
+    this.money = makeMoneySystem(cfg.money);
+    this.households = [];
+    for (let i = 0; i < N_HOUSEHOLDS; i++) {
+      const wage = WAGE_MEAN * this.wageRng.lognormvariate(0.0, WAGE_SPREAD);
+      this.households.push(new Household(i, wage, i === 0));
+    }
+    this.human = this.households[0];
+    this.t = 0;
+    this.records = [];
+  }
+
+  observe(hh) {
+    const unit_cost = {};
+    for (let units = 0; units <= 3; units++) {
+      const purchase = this.money.price(UNIT_CASH_COST * units, hh.footprint(units));
+      unit_cost[String(units)] = purchase.cash_cost;
+    }
+    return {
+      t: this.t,
+      cash: hh.wallet.cash,
+      tokens: Object.assign({}, hh.wallet.tokens),
+      prices: Object.assign({}, this.money.token_prices),
+      stock_health: (() => {
+        const h = {};
+        for (const name of RESOURCE_KEYS) h[name] = this.env.resources[name].health;
+        return h;
+      })(),
+      last_satisfaction: hh.satisfactionHistory.length ? hh.satisfactionHistory[hh.satisfactionHistory.length - 1] : null,
+      money_system: this.money.name,
+      efficiency: hh.efficiency,
+      unit_cost,
+    };
+  }
+
+  /** Advance the environment + institution by one round (call once per round,
+   *  before collecting the human's decision). Returns the observation to show. */
+  beginRound() {
+    this.env.step();
+    const laggedHealth = this.env.laggedHealth(OBSERVATION_LAG);
+    this.money.updatePrices(laggedHealth, PRICE_SENSITIVITY);
+    const allocation = {};
+    for (const name of RESOURCE_KEYS) {
+      allocation[name] = ISSUANCE_HEADROOM * this.env.sustainableYield(name, OBSERVATION_LAG);
+    }
+    this.money.issue(this.households.map((h) => h.wallet), allocation);
+    for (const hh of this.households) hh.wallet.cash += hh.wage;
+    return this.observe(this.human);
+  }
+
+  applyAction(hh, action) {
+    let units = Math.max(0, Math.min(3, action.consumption));
+    let purchase = this.money.price(UNIT_CASH_COST * units, hh.footprint(units));
+    while (units > 0 && this.money.shortfallCash(hh.wallet, purchase) === null) {
+      units -= 1;
+      purchase = this.money.price(UNIT_CASH_COST * units, hh.footprint(units));
+    }
+    let availability = 1.0;
+    if (units > 0) {
+      this.money.execute(hh.wallet, purchase);
+      const fp = hh.footprint(units);
+      for (const dim of Object.keys(fp)) {
+        const qty = fp[dim];
+        const got = this.env.extract(dim, qty);
+        if (qty > 0) availability = Math.min(availability, got / qty);
+      }
+    }
+    const satisfaction = SATISFACTION[units] * availability;
+    hh.satisfactionHistory.push(satisfaction);
+
+    if (action.invest && hh.wallet.cash >= EFFICIENCY_COST) {
+      hh.wallet.cash -= EFFICIENCY_COST;
+      hh.efficiency = Math.max(EFFICIENCY_FLOOR, hh.efficiency * EFFICIENCY_FACTOR);
+    }
+    return { units, satisfaction };
+  }
+
+  /** Finish the round: apply the human's action first (matches uid=0
+   *  processing order), then every bot via the rule-based policy. */
+  finishRound(humanAction) {
+    const humanResult = this.applyAction(this.human, humanAction);
+    for (let i = 1; i < this.households.length; i++) {
+      const hh = this.households[i];
+      const obs = this.observe(hh);
+      const action = ruleBasedDecide(obs);
+      this.applyAction(hh, action);
+    }
+    const satisfactions = this.households.map((h) => h.satisfactionHistory[h.satisfactionHistory.length - 1]);
+    const record = {
+      t: this.t,
+      welfare: satisfactions.reduce((a, b) => a + b, 0) / satisfactions.length,
+      human_satisfaction: humanResult.satisfaction,
+      human_consumption: humanResult.units,
+    };
+    for (const name of RESOURCE_KEYS) record["stock_" + name] = this.env.resources[name].stock;
+    for (const dim of RESOURCE_KEYS) record["price_" + dim] = this.money.token_prices[dim];
+    this.records.push(record);
+    this.t += 1;
+    return record;
+  }
+}
+
+/* =====================================================================
+ * 7. App wiring: URL params, screen flow, rendering, data export.
+ * =================================================================== */
+const params = new URLSearchParams(location.search);
+const CONDITION = {
+  money: (params.get("money") || "vector").toLowerCase(),
+  environment: (params.get("env") || "shifting").toLowerCase(),
+  pid: params.get("pid") || ("anon-" + Math.random().toString(36).slice(2, 10)),
+  rounds: Math.max(1, parseInt(params.get("rounds") || "30", 10)),
+  post: params.get("post") || "",
+};
+if (!["scalar", "vector"].includes(CONDITION.money)) CONDITION.money = "vector";
+if (!["static", "shifting"].includes(CONDITION.environment)) CONDITION.environment = "shifting";
+
+const SEED = hashSeed(CONDITION.pid);
+const economy = new Economy({
+  seed: SEED,
+  money: CONDITION.money,
+  environment: CONDITION.environment,
+});
+
+const sessionLog = {
+  pid: CONDITION.pid,
+  condition: { money: CONDITION.money, environment: CONDITION.environment, rounds: CONDITION.rounds, seed: SEED },
+  started_at: new Date().toISOString(),
+  rounds: [],
+  questionnaire: null,
+};
+
+let currentObs = null;
+let currentAction = { consumption: null, invest: false };
+let roundStartTime = 0;
+let roundIndex = 0; // 0-based, next round to play
+
+// Section 3.4 / 7.3: 25-minute hard session timeout, starting when Round 1
+// begins. Partial data is retained and flagged `excluded_timeout`.
+const SESSION_TIMEOUT_MS = 25 * 60 * 1000;
+let sessionTimeoutId = null;
+
+function forceTimeoutEnd() {
+  sessionLog.excluded_timeout = true;
+  sessionLog.rounds_completed = roundIndex;
+  // Section 9.2 consent: base fee is still owed once >=10 rounds are done.
+  sessionLog.base_fee_eligible = roundIndex >= 10;
+  document.getElementById("btn-submit-round").disabled = true;
+  finishGame();
+}
+
+function show(id) {
+  for (const el of document.querySelectorAll(".wrap > section")) el.classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+}
+
+document.getElementById("consent-check").addEventListener("change", (e) => {
+  document.getElementById("btn-consent-continue").disabled = !e.target.checked;
+});
+document.getElementById("btn-consent-continue").addEventListener("click", () => show("screen-instructions"));
+document.getElementById("btn-instructions-continue").addEventListener("click", () => {
+  buildCheckForm();
+  show("screen-check");
+});
+
+/* ---- comprehension check ---- */
+const CHECK_QUESTIONS = [
+  {
+    q: "What happens if you choose a consumption level you cannot currently afford?",
+    options: [
+      "You go into debt and pay it back later.",
+      "That level is unavailable; you must choose an affordable level.",
+      "The game chooses a random level for you.",
+      "Nothing — you can always choose any level.",
+    ],
+    correct: 1,
+  },
+  {
+    q: "If a material's shared pool is very low, what can happen even if you can afford your chosen level?",
+    options: [
+      "Your cash balance increases automatically.",
+      "The level costs less than shown.",
+      "You may score fewer points than the level's usual amount, because there isn't enough of that material available.",
+      "You are switched to a different material automatically.",
+    ],
+    correct: 2,
+  },
+  {
+    q: "What does investing in efficiency do?",
+    options: [
+      "It directly adds points to your score.",
+      "It permanently reduces how much material your future consumption uses.",
+      "It refunds your cash at the end of the game.",
+      "It increases your wage.",
+    ],
+    correct: 1,
+  },
+  {
+    q: "How is your bonus payment determined?",
+    options: [
+      "A random draw at the end of the game.",
+      "Whether you finish in the top 3 of all participants.",
+      "The sum of the points you score across all 30 rounds.",
+      "How many rounds you play, regardless of your choices.",
+    ],
+    correct: 2,
+  },
+];
+let checkAttempt = 0;
+
+function buildCheckForm() {
+  const wrap = document.getElementById("check-form");
+  wrap.innerHTML = "";
+  CHECK_QUESTIONS.forEach((item, qi) => {
+    const div = document.createElement("div");
+    div.style.marginTop = "1.2em";
+    const p = document.createElement("p");
+    p.innerHTML = "<strong>" + (qi + 1) + ". " + item.q + "</strong>";
+    div.appendChild(p);
+    item.options.forEach((opt, oi) => {
+      const label = document.createElement("label");
+      label.style.display = "flex";
+      label.style.gap = "8px";
+      label.style.marginTop = "4px";
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "check-q" + qi;
+      input.value = oi;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(opt));
+      div.appendChild(label);
+    });
+    wrap.appendChild(div);
+  });
+}
+
+document.getElementById("btn-check-submit").addEventListener("click", () => {
+  checkAttempt += 1;
+  let correctCount = 0;
+  CHECK_QUESTIONS.forEach((item, qi) => {
+    const sel = document.querySelector('input[name="check-q' + qi + '"]:checked');
+    if (sel && parseInt(sel.value, 10) === item.correct) correctCount += 1;
+  });
+  const resultEl = document.getElementById("check-result");
+  if (correctCount >= 3) {
+    resultEl.textContent = "";
+    startGame();
+  } else if (checkAttempt >= 2) {
+    resultEl.textContent =
+      "You did not pass the comprehension check after two attempts. Thank you for your time — please return the study; the base fee is still recorded.";
+    document.getElementById("btn-check-submit").disabled = true;
+    sessionLog.excluded_comprehension = true;
+  } else {
+    resultEl.textContent =
+      "You answered " + correctCount + "/4 correctly. Please re-read the instructions and try again.";
+    show("screen-instructions");
+  }
+});
+
+/* ---- game loop ---- */
+function healthColor(h) {
+  // green (healthy) -> red (empty), via a simple HSL interpolation
+  const hue = Math.max(0, Math.min(120, h * 120));
+  return "hsl(" + hue + ", 65%, 42%)";
+}
+
+function renderMaterials(obs) {
+  const wrap = document.getElementById("materials");
+  wrap.innerHTML = "";
+  for (const name of RESOURCE_KEYS) {
+    const h = obs.stock_health[name];
+    const label = RESOURCE_LABELS[name];
+    const row = document.createElement("div");
+    row.style.marginBottom = "10px";
+    row.innerHTML =
+      '<div class="mat-label"><span>Material ' + label + '</span><span>' + Math.round(h * 100) + '%</span></div>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + Math.max(0, Math.min(100, h * 100)) + '%;background:' + healthColor(h) + ';"></div></div>';
+    wrap.appendChild(row);
+  }
+}
+
+function renderWallet(obs) {
+  document.getElementById("wallet-cash").textContent = obs.cash.toFixed(2);
+  const stampWrap = document.getElementById("stamp-wallet-wrap");
+  if (CONDITION.money === "vector") {
+    stampWrap.classList.remove("hidden");
+    const parts = RESOURCE_KEYS.map((k) => RESOURCE_LABELS[k] + ": " + obs.tokens[k].toFixed(2));
+    document.getElementById("stamp-wallet").textContent = parts.join("   ");
+  } else {
+    stampWrap.classList.add("hidden");
+  }
+}
+
+function renderCostTable(obs) {
+  const stampHead = document.getElementById("stamp-cost-head");
+  const tbody = document.querySelector("#cost-table tbody");
+  tbody.innerHTML = "";
+  const showStamps = CONDITION.money === "vector";
+  stampHead.classList.toggle("hidden", !showStamps);
+  for (let units = 0; units <= 3; units++) {
+    const tr = document.createElement("tr");
+    let stampText = "";
+    if (showStamps) {
+      const hh = economy.human;
+      const fp = hh.footprint(units);
+      stampText = RESOURCE_KEYS.map((k) => fp[k].toFixed(3)).join(" / ");
+    }
+    tr.innerHTML =
+      "<td>" + units + "</td><td>" + obs.unit_cost[String(units)].toFixed(2) + "</td>" +
+      (showStamps ? "<td>" + stampText + "</td>" : "");
+    tbody.appendChild(tr);
+  }
+}
+
+function affordableLevels(obs) {
+  const wallet = economy.human.wallet;
+  const out = [];
+  for (let units = 0; units <= 3; units++) {
+    const purchase = economy.money.price(UNIT_CASH_COST * units, economy.human.footprint(units));
+    if (units === 0 || economy.money.shortfallCash(wallet, purchase) !== null) out.push(units);
+  }
+  return out;
+}
+
+function renderLevelButtons(obs) {
+  const wrap = document.getElementById("level-buttons");
+  wrap.innerHTML = "";
+  const afford = affordableLevels(obs);
+  for (let units = 0; units <= 3; units++) {
+    const btn = document.createElement("button");
+    const ok = afford.includes(units);
+    btn.disabled = !ok;
+    btn.innerHTML = "Level " + units + '<span class="lv-cost">' + SATISFACTION[units].toFixed(2) + " pts</span>";
+    btn.dataset.units = units;
+    if (currentAction.consumption === units) btn.style.borderColor = "var(--accent)";
+    btn.addEventListener("click", () => {
+      currentAction.consumption = units;
+      renderLevelButtons(obs);
+      document.getElementById("btn-submit-round").disabled = false;
+    });
+    wrap.appendChild(btn);
+  }
+}
+
+function renderInvestNote() {
+  const hh = economy.human;
+  const canInvest = hh.wallet.cash >= EFFICIENCY_COST;
+  const note = document.getElementById("invest-note");
+  note.textContent = canInvest
+    ? "(current efficiency multiplier: " + hh.efficiency.toFixed(3) + ")"
+    : "(not enough cash right now)";
+  const check = document.getElementById("invest-check");
+  check.disabled = !canInvest;
+  check.checked = currentAction.invest && canInvest;
+}
+
+function renderRound() {
+  currentObs = economy.beginRound();
+  currentAction = { consumption: null, invest: false };
+  document.getElementById("round-badge").textContent = "Round " + (roundIndex + 1) + " / " + CONDITION.rounds;
+  renderWallet(currentObs);
+  renderMaterials(currentObs);
+  renderCostTable(currentObs);
+  renderLevelButtons(currentObs);
+  renderInvestNote();
+  document.getElementById("btn-submit-round").disabled = true;
+  roundStartTime = performance.now();
+}
+
+document.getElementById("invest-check").addEventListener("change", (e) => {
+  currentAction.invest = e.target.checked;
+});
+
+document.getElementById("btn-submit-round").addEventListener("click", () => {
+  if (currentAction.consumption === null) return;
+  const latencyMs = Math.round(performance.now() - roundStartTime);
+  const record = economy.finishRound(currentAction);
+  sessionLog.rounds.push({
+    round: roundIndex + 1,
+    observation: currentObs,
+    action: { consumption: currentAction.consumption, invest: currentAction.invest },
+    latency_ms: latencyMs,
+    points: record.human_satisfaction,
+    welfare_mean_all: record.welfare,
+  });
+  document.getElementById("feedback-line").textContent =
+    "You gained " + record.human_satisfaction.toFixed(2) + " points this round.";
+  roundIndex += 1;
+  if (roundIndex >= CONDITION.rounds) {
+    if (sessionTimeoutId) clearTimeout(sessionTimeoutId);
+    finishGame();
+  } else {
+    renderRound();
+  }
+});
+
+function startGame() {
+  show("screen-game");
+  renderRound();
+  sessionTimeoutId = setTimeout(forceTimeoutEnd, SESSION_TIMEOUT_MS);
+}
+
+/* ---- questionnaire ---- */
+const LIKERT_LABELS_2 = ["Not at all", "2", "3", "4 (neutral)", "5", "6", "Very much"];
+const LIKERT_LABELS_3 = ["Very unfair", "2", "3", "4 (neutral)", "5", "6", "Very fair"];
+
+function buildLikert(containerId, name, labels) {
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = "";
+  for (let i = 1; i <= 7; i++) {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = name;
+    input.value = i;
+    label.appendChild(input);
+    const span = document.createElement("span");
+    span.textContent = i;
+    label.appendChild(span);
+    wrap.appendChild(label);
+  }
+}
+buildLikert("q2", "likert2", LIKERT_LABELS_2);
+buildLikert("q3", "likert3", LIKERT_LABELS_3);
+
+function finishGame() {
+  show("screen-questionnaire");
+}
+
+document.getElementById("btn-submit-questionnaire").addEventListener("click", () => {
+  const sel2 = document.querySelector('input[name="likert2"]:checked');
+  const sel3 = document.querySelector('input[name="likert3"]:checked');
+  sessionLog.questionnaire = {
+    strategy: document.getElementById("q1").value,
+    materials_impact_likert: sel2 ? parseInt(sel2.value, 10) : null,
+    fairness_likert: sel3 ? parseInt(sel3.value, 10) : null,
+    confusing: document.getElementById("q4").value,
+    difficulty: document.getElementById("q5").value,
+  };
+  sessionLog.ended_at = new Date().toISOString();
+  const total = economy.human.satisfactionHistory.reduce((a, b) => a + b, 0);
+  sessionLog.total_points = total;
+  sessionLog.final_records = economy.records;
+  document.getElementById("final-score").textContent = total.toFixed(2);
+  document.getElementById("final-condition").textContent = CONDITION.money + " / " + CONDITION.environment;
+  document.getElementById("final-pid").textContent = CONDITION.pid;
+  show("screen-end");
+  maybePost();
+});
+
+function maybePost() {
+  const statusEl = document.getElementById("post-status");
+  if (!CONDITION.post) {
+    statusEl.textContent = "";
+    return;
+  }
+  statusEl.textContent = "Submitting your data…";
+  fetch(CONDITION.post, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(sessionLog),
+  })
+    .then((r) => {
+      statusEl.textContent = r.ok ? "Your data was submitted successfully." : "Submission failed — please use the download button below.";
+    })
+    .catch(() => {
+      statusEl.textContent = "Submission failed (offline?) — please use the download button below.";
+    });
+}
+
+document.getElementById("btn-download").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(sessionLog, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "resource-game_" + CONDITION.pid + "_" + CONDITION.money + "-" + CONDITION.environment + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+</script>
