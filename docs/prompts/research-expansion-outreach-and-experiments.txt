@@ -1,0 +1,5 @@
+update / pull to the latest version and continue the work
+improve the outreach and the research on this idea, being conscious of your costs and delegating as much as possible to cheaper agents.
+the goal is to improve the outreach material, the thesis, while writing more proposals on research subjects for grant applications
+
+don't come back until all of this is solved. new website with better communication and persuasion. new research code and experiments with both humans and llms, simulating both a shifting (climate change) and static environments, and research grant proposals from ai research companies, climate oriented fundations and so on.

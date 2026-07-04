@@ -39,3 +39,36 @@ and the market into a single simulation class.  Default parameters imitate
 late-20th-century global conditions.  The :py:meth:`run` method executes the
 model for a given number of steps and returns a list of recorded stock levels.
 
+## Experiment layer (scalar vs. vector money)
+
+Alongside the legacy Mesa/DoughnutABM components above, a second, lighter
+simulation stack implements the scalar-vs-vector-money comparison described
+in `docs/thesis.md`:
+
+- ``src/climate.py`` – ``ResourceState`` (logistic regeneration toward a
+  capacity, with an ecological ``boundary``) plus ``Environment`` /
+  ``StaticEnvironment`` (stationary regeneration) and ``ShiftingEnvironment``
+  (a ``ClimateTrajectory`` that drifts regeneration down toward a floor and
+  ramps shock probability up to a cap, destroying part of a stock when a
+  shock lands).
+- ``src/money.py`` – ``Wallet`` and ``MoneySystem``, with ``ScalarMoney``
+  (ordinary fungible cash) and ``VectorMoney`` (per-resource, partly
+  non-convertible tokens issued per capita from an estimated sustainable
+  yield) as two ends of a continuum controlled by a convertibility
+  parameter, plus ``make_money_system`` to construct either from config.
+- ``src/economy.py`` – ``Household`` and ``Economy``/``EconomyConfig``,
+  which wire households, the environment, and a money system together into
+  a steppable simulation and record per-round welfare, overshoot, and
+  inequality.
+- ``src/policies.py`` – the pluggable decision-making substrates households
+  can run under: ``RuleBasedPolicy`` (satisficing baseline),
+  ``QLearningPolicy`` (tabular RL), ``LLMPolicy`` (structured-output Claude
+  agents), and ``HumanPolicy`` (browser-driven human subjects), selected via
+  ``make_policy``.
+- ``experiments/`` – ``run_matrix.py`` sweeps the scalar/vector ×
+  static/shifting design across seeds and substrates and writes results to
+  ``experiments/results*`` for `plot_results.py` to turn into the figures in
+  `figures/`; ``experiments/human/`` holds the pre-registered human-subject
+  protocol and browser implementation; ``experiments/configs/`` holds the
+  sweep configurations.
+
