@@ -1,0 +1,11 @@
+steps: 200
+n_households: 20
+seeds: 12
+money:
+  - scalar
+  - vector
+environment:
+  - static
+  - shifting
+policies:
+  - rule

@@ -1,0 +1,582 @@
+[
+  {
+    "money": "0.0",
+    "environment": "shifting",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.4565515624999994,
+      "sd": 0.07963675945837548
+    },
+    "welfare_final": {
+      "mean": 0.10624999999999998,
+      "sd": 0.3005203820042826
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.012896092518371626,
+      "sd": 0.008081281511389269
+    },
+    "gini_wealth_final": {
+      "mean": 0.7006738845300431,
+      "sd": 0.1606658218149533
+    },
+    "overshoot_total": {
+      "mean": 31.68804457227419,
+      "sd": 11.045007012012803
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 17.08570740912367,
+      "sd": 5.154859656867622
+    },
+    "overshoot_biomass": {
+      "mean": 14.602337163150523,
+      "sd": 5.906011467415021
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 12.25,
+      "sd": 18.57609831400094
+    },
+    "return_time_biomass": {
+      "mean": 12.625,
+      "sd": 23.945995788142
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.0",
+    "environment": "static",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.5293937499999982,
+      "sd": 0.09501552199321295
+    },
+    "welfare_final": {
+      "mean": 0.48124999999999996,
+      "sd": 0.1944543648263006
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.006574926030197314,
+      "sd": 0.018236078104447207
+    },
+    "gini_wealth_final": {
+      "mean": 0.3585005036052106,
+      "sd": 0.032917409385009117
+    },
+    "overshoot_total": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.25",
+    "environment": "shifting",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.6475724182686631,
+      "sd": 0.06115577712873367
+    },
+    "welfare_final": {
+      "mean": 0.18906250000000002,
+      "sd": 0.2614825093167255
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.05277112386798043,
+      "sd": 0.020600998998207394
+    },
+    "gini_wealth_final": {
+      "mean": 0.7496995775072719,
+      "sd": 0.2163999028139566
+    },
+    "overshoot_total": {
+      "mean": 62.17797007126489,
+      "sd": 17.767209851198547
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 35.376571083593866,
+      "sd": 7.848249889620048
+    },
+    "overshoot_biomass": {
+      "mean": 26.80139898767102,
+      "sd": 10.551314606220082
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 56.125,
+      "sd": 58.67693024398211
+    },
+    "return_time_biomass": {
+      "mean": 14.0,
+      "sd": 25.014281634983757
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.25",
+    "environment": "static",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.9024015624999996,
+      "sd": 0.02628647163390021
+    },
+    "welfare_final": {
+      "mean": 0.896875,
+      "sd": 0.032753135073498835
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.0642474256520034,
+      "sd": 0.016448555323961802
+    },
+    "gini_wealth_final": {
+      "mean": 0.7963924485000065,
+      "sd": 0.07761098912619757
+    },
+    "overshoot_total": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.5",
+    "environment": "shifting",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.6572402703520068,
+      "sd": 0.05735018316990821
+    },
+    "welfare_final": {
+      "mean": 0.1375,
+      "sd": 0.2546005274374517
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.03238909349640125,
+      "sd": 0.015603231062416845
+    },
+    "gini_wealth_final": {
+      "mean": 0.7266566193419519,
+      "sd": 0.2170187324781627
+    },
+    "overshoot_total": {
+      "mean": 61.879201550050354,
+      "sd": 19.25938177924814
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 34.99763739660004,
+      "sd": 9.346475614236168
+    },
+    "overshoot_biomass": {
+      "mean": 26.881564153450316,
+      "sd": 10.854083224766228
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 41.125,
+      "sd": 55.85807909335945
+    },
+    "return_time_biomass": {
+      "mean": 26.25,
+      "sd": 39.42352452171528
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.5",
+    "environment": "static",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.9101546875000001,
+      "sd": 0.024988079244965947
+    },
+    "welfare_final": {
+      "mean": 0.9193749999999999,
+      "sd": 0.02396984712985404
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.0629122348712741,
+      "sd": 0.017103639239723984
+    },
+    "gini_wealth_final": {
+      "mean": 0.7670522592935999,
+      "sd": 0.08131336245593603
+    },
+    "overshoot_total": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.75",
+    "environment": "shifting",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.6642108378523045,
+      "sd": 0.05726612247460509
+    },
+    "welfare_final": {
+      "mean": 0.20625000000000002,
+      "sd": 0.2846520432287211
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.027131268151007436,
+      "sd": 0.01479283580938426
+    },
+    "gini_wealth_final": {
+      "mean": 0.7187566628448493,
+      "sd": 0.2232999207553536
+    },
+    "overshoot_total": {
+      "mean": 61.119506702767694,
+      "sd": 19.383205336176893
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 34.531280509774646,
+      "sd": 9.285004304741918
+    },
+    "overshoot_biomass": {
+      "mean": 26.58822619299305,
+      "sd": 10.875677430890537
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 55.75,
+      "sd": 59.07561740200919
+    },
+    "return_time_biomass": {
+      "mean": 26.25,
+      "sd": 39.42352452171528
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "0.75",
+    "environment": "static",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.9135703125000001,
+      "sd": 0.023519237886914433
+    },
+    "welfare_final": {
+      "mean": 0.9165625000000001,
+      "sd": 0.022832366594063673
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.062162215956006,
+      "sd": 0.017177379306620846
+    },
+    "gini_wealth_final": {
+      "mean": 0.7539653341454807,
+      "sd": 0.07936796463817958
+    },
+    "overshoot_total": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "1.0",
+    "environment": "shifting",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.6201035483621202,
+      "sd": 0.05788924140760299
+    },
+    "welfare_final": {
+      "mean": 0.1375,
+      "sd": 0.2546005274374517
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.04850968119504786,
+      "sd": 0.013827924917065231
+    },
+    "gini_wealth_final": {
+      "mean": 0.7167501980824704,
+      "sd": 0.22090380719690333
+    },
+    "overshoot_total": {
+      "mean": 62.80512181051793,
+      "sd": 19.26745025879812
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 35.167043807712425,
+      "sd": 9.064196800477085
+    },
+    "overshoot_biomass": {
+      "mean": 27.638078002805514,
+      "sd": 11.018448982566095
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 45.5,
+      "sd": 58.98668130543175
+    },
+    "return_time_biomass": {
+      "mean": 46.125,
+      "sd": 47.03627019955679
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  },
+  {
+    "money": "1.0",
+    "environment": "static",
+    "policy": "rule",
+    "n": 8,
+    "welfare_mean": {
+      "mean": 0.8429468749999995,
+      "sd": 0.029734911202093806
+    },
+    "welfare_final": {
+      "mean": 0.8446875,
+      "sd": 0.040032074194147255
+    },
+    "gini_satisfaction_mean": {
+      "mean": 0.10371096478652315,
+      "sd": 0.01791118772521308
+    },
+    "gini_wealth_final": {
+      "mean": 0.8261727601250207,
+      "sd": 0.07213859808661588
+    },
+    "overshoot_total": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "overshoot_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_carbon": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_water": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_biomass": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "return_time_minerals": {
+      "mean": 0.0,
+      "sd": 0.0
+    }
+  }
+]
